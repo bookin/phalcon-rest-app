@@ -7,7 +7,7 @@ abstract class Response extends \Phalcon\DI\Injectable{
 
     protected $content;
 
-    protected $snake = true;
+    protected $snake = false;
     protected $envelope = true;
 
     const RESPONSE_SUCCESS = 'success';

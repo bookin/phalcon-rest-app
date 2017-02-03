@@ -193,6 +193,8 @@ $app->get('/', function() use ($app){
         $method = $route->getHttpMethods();
         $routeDefinitions[$method][] = $route->getPattern();
     }
+    $response = new \Rest\Components\Response\JsonResponse();
+    $response->send($routeDefinitions);
     return $routeDefinitions;
 });
 
