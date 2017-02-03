@@ -5,6 +5,14 @@ $settings = [
         'domain'=>'http://phalcon.loc/',
         'modelsDir'=>"../app/models/"
     ],
+    'mongodb'=>[
+        'db'=>'rest',
+        'server'=>'mongodb://localhost:27017',
+        'options'=>[
+            'connect' => true
+        ],
+        'driver_options'=>[]
+    ],
     "rest"=>[
         'format'=>'json',
         'modules'=>[

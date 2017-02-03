@@ -56,13 +56,21 @@ $di->set('modelsCache', function() {
 });
 
 /**
- * Database setup.  Here, we'll use a simple SQLite database of Disney Princesses.
+ * Init MongoDb
  */
-$di->set('db', function(){
-    return new \Phalcon\Db\Adapter\Pdo\Sqlite(array(
-        'data/database.sqlite'
-    ));
-});
+$di->set("mongo", function () {
+    $config = $this->get('config')->mongodb;
+    $mongo = new MongoClient(
+        $config->server?:'mongodb://localhost:27017',
+        isset($config->options)?$config->options->toArray():['connect'=>true],
+        isset($config->driver_options)?$config->driver_options->toArray():[]
+    );
+    return $mongo->selectDB($config->db);
+}, true);
+
+$di->set("collectionManager", function () {
+    return new Phalcon\Mvc\Collection\Manager();
+}, true);
 
 /**
  * If our request contains a body, it has to be valid JSON.  This parses the
