@@ -1,0 +1,15 @@
+{
+  "name": "bookin/phalcon-rest-app",
+  "description": "example rest service on the phalcon framework",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Anton",
+      "email": "issues.bookin@gmail.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "codeception/codeception": "^2.2"
+  }
+}
