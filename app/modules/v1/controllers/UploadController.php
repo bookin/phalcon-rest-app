@@ -2,7 +2,9 @@
 namespace v1\Controllers;
 
 use Rest\Components\RestController;
+use Rest\Components\RestException;
 use v1\components\CDNServer;
+use v1\models\Video;
 
 class UploadController extends RestController {
 
@@ -18,8 +20,23 @@ class UploadController extends RestController {
         ]);
     }
 
+    /**
+     * Fake method for upload video
+     * @return mixed
+     * @throws RestException
+     */
     public function uploadVideo()
     {
-        return $this->response(['upload']);
+        sleep(rand(1, 20));
+        $model = new Video();
+        if(!$model->save()){
+            throw new RestException(500, ['devMessage'=>$model->getMessages()]);
+        }else{
+            return $this->response([
+                'filename'=>$model->filename,
+                'duration'=>$model->duration,
+                'url'=>$this->di->get('url')->get('/public/'.$model->filename)
+            ]);
+        }
     }
 }
