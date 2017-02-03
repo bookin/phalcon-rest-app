@@ -34,9 +34,9 @@ $collections[] = $collection;
  * Collection for UserController
  */
 $collection = new \Phalcon\Mvc\Micro\Collection();
-$collection->setPrefix('/v1/user')->setHandler(v1\Controllers\UserController::class, true);
+$collection->setPrefix('/v1/auth')->setHandler(v1\Controllers\UserController::class, true);
 
-$collection->get('/auth/{id}', 'auth'); //simple Auth user by user_id
+$collection->get('/', 'auth'); //just return fake token
 
 $collections[] = $collection;
 
