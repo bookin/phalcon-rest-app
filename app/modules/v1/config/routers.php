@@ -9,7 +9,7 @@ $collection = new \Phalcon\Mvc\Micro\Collection();
 $collection->setPrefix('/v1/upload')->setHandler(v1\Controllers\UploadController::class, true);
 
 $collection->get('/get-url', 'getUrl'); //get url for video hosting
-$collection->post('/video', 'uploadVideo'); //fake method for upload video
+$collection->post('/video/{rand}', 'uploadVideo'); //fake method for upload video
 
 $collections[] = $collection;
 
