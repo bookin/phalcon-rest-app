@@ -90,6 +90,12 @@ $di->setShared('requestBody', function() {
     return $in;
 });
 
+$di->set('url', function(){
+    $url = new Phalcon\Mvc\Url();
+    $url->setBaseUri($this->get('config')->app->domain);
+    return $url;
+});
+
 
 $loader = new \Rest\Components\Loader($di);
 $loader->loadModules();

@@ -2,7 +2,8 @@
 
 $settings = [
     "app" => [
-        "modelsDir"      => "../app/models/"
+        'domain'=>'http//phalcon.loc/',
+        'modelsDir'      => "../app/models/"
     ],
     "rest"=>[
         'format'=>'json',
