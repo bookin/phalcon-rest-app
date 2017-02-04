@@ -54,3 +54,6 @@ composer.phar
 /cache/
 /config/development/
 composer.lock
+
+public/files/*
+!.gitkeep
