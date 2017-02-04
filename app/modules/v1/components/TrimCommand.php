@@ -11,7 +11,11 @@ class TrimCommand
         $this->_server = $server;
     }
 
-    public function execute($filename){
-        $this->_server->startTrim($filename);
+    /**
+     * @param \v1\models\Video $video
+     * @return boolean
+     */
+    public function execute($video, $from, $to){
+        return $this->_server->startTrim($video->filename, $from, $to);
     }
 }
