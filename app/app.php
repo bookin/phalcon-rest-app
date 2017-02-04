@@ -47,6 +47,20 @@ $app->before(function() use($app, $di){
 
     $authHeader = $app->request->getHeader('Authorization');
     if ($authHeader !== null && preg_match('/^Bearer\s+(.*?)$/', $authHeader, $matches)) {
+        $token = $matches[1];
+        if(($model=\Rest\models\Tokens::findFirst([['token'=>$token]]))){
+            $di->setShared('user', function()use($model){
+                return $model;
+            });
+        }else{
+            throw new \Rest\Components\RestException(
+                403,
+                'Invalid token error',
+                [
+                    'devCode' => 'BEFORE1'
+                ]
+            );
+        }
         //check $matches[1] (token)
         //get user, and set like service
         //if valid
