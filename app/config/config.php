@@ -3,7 +3,11 @@
 $settings = [
     "app" => [
         'domain'=>'http://phalcon.loc/',
-        'modelsDir'=>"../app/models/"
+        'modelsDir'=>"../app/models/",
+        'cache'=>[
+            'enable'=>true,
+            'lifetime'=>3600,
+        ]
     ],
     'mongodb'=>[
         'db'=>'rest',

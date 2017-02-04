@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Phalcon\Di\FactoryDefault\ $di
+ */
 
 /**
  * Set config
@@ -20,16 +23,18 @@ $di->setShared('session', function(){
  * Set Cache options
  */
 $di->set('modelsCache', function() {
+    $config = $this->getConfig()->app;
+    if(isset($config->cache) && $config->cache->enable){
+        //Cache data for one day by default
+        $frontCache = new \Phalcon\Cache\Frontend\Data(array(
+            'lifetime' => $config->cache->lifetime?:3600
+        ));
 
-    //Cache data for one day by default
-    $frontCache = new \Phalcon\Cache\Frontend\Data(array(
-        'lifetime' => 3600
-    ));
-
-    //File cache settings
-    $cache = new \Phalcon\Cache\Backend\File($frontCache, array(
-        'cacheDir' => __DIR__ . '/cache/'
-    ));
+        //File cache settings
+        $cache = new \Phalcon\Cache\Backend\File($frontCache, array(
+            'cacheDir' => $config->cache->cacheDir?:__DIR__ . '/cache/'
+        ));
+    }
 
     return $cache;
 });
@@ -38,7 +43,7 @@ $di->set('modelsCache', function() {
  * Set config MongoDb
  */
 $di->set("mongo", function () {
-    $config = $this->get('config')->mongodb;
+    $config = $this->getConfig()->mongodb;
     $mongo = new MongoClient(
         $config->server?:'mongodb://localhost:27017',
         isset($config->options)?$config->options->toArray():['connect'=>true],
