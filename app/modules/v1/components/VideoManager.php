@@ -5,12 +5,9 @@ namespace v1\components;
 class VideoManager implements IVideoManager
 {
 
-    public function startTrim($filename)
-    {
-
+    public function startTrim($video_id, $from, $to){
+        return true;
     }
 
-    public function checkTrim($filename){
-
-    }
+    public function checkTrim($video_id){}
 }
