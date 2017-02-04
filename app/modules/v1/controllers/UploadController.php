@@ -27,16 +27,27 @@ class UploadController extends RestController {
      */
     public function uploadVideo()
     {
-        sleep(rand(1, 20));
-        $model = new Video();
-        if(!$model->save()){
-            throw new RestException(500, '', ['devMessage'=>$model->getMessages()]);
+        $fileNameKey = 'file';
+        if ($this->request->hasFiles() == true) {
+            foreach ($this->request->getUploadedFiles() as $file) {
+                if($file->getKey() == $fileNameKey){
+                    $model = Video::saveVideo($file);
+                    if(!$model || $model->getMessages()){
+                        $errors = $model->getErrors();
+                        throw new RestException(400, $errors[0], ['devMessage'=>$errors]);
+                    }else{
+                        return $this->response([
+                            'filename'=>$model->filename,
+                            'duration'=>$model->duration,
+                            'url'=>$this->di->get('url')->get('/public/'.$model->filename)
+                        ]);
+                    }
+                }else{
+                    throw new RestException(400, 'Need send file');
+                }
+            }
         }else{
-            return $this->response([
-                'filename'=>$model->filename,
-                'duration'=>$model->duration,
-                'url'=>$this->di->get('url')->get('/public/'.$model->filename)
-            ]);
+            throw new RestException(400, 'Need send file');
         }
     }
 }

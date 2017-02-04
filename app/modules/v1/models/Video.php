@@ -1,55 +1,77 @@
 <?php
 namespace v1\models;
 
+use Phalcon\Http\Request\FileInterface;
+use Phalcon\Mvc\Model\Message;
 use Phalcon\Mvc\Model\Validator\StringLength;
 use Rest\Components\Model;
+use Rest\Components\RestException;
 
 class Video extends Model
 {
+    public $name;
     public $filename;
     public $user_id;
     public $server;
     public $duration;
     public $trim_date;
 
+    /**
+     * @var FileInterface
+     */
+    protected $file;
+    static $allowedTypes = [
+        'video/mp4',
+        'video/avi'
+    ];
+
     public function validation()
     {
-        $this->validate(
-            new StringLength(
-                [
-                    "field"          => "filename",
-                    "min"            => 3,
-                    "messageMinimum" => "We want more than just their initials",
-                ]
-            )
+
+        $this->validate(new StringLength([
+                "field"=>"name",
+                "min"=> 3,
+                "messageMinimum"=>"We want more than just their initials"
+            ])
         );
+
+        if(!$this->isTypeAllowed($this->file->getRealType())){
+            $this->appendMessage(new Message("Allowed types ".implode(',', self::$allowedTypes)));
+        }
 
         return $this->validationHasFailed() !== true;
     }
 
-
-    /**
-     * Create Fake video
-     * @return Video
-     */
-    public static function createFakeVideo(){
-        $filename = self::generateRandomString(5).'avi';
-        $model = new self();
-        $model->filename = $filename;
-        $model->duration = rand(10, 30);
-        $model->server = long2ip(rand(0, "4294967295"));
-        $model->save();
-        return $model;
+    public function afterSave(){
+        if(!$this->getMessages()){
+            $this->file->moveTo(PUBLIC_PATH.'/files/'.$this->filename);
+        }
     }
 
-    public static function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)];
-        }
-        return $randomString;
+    /**
+     * Check allowed video formats
+     * @param  string $extension Extension (eg 'avi')
+     * @return boolean
+     */
+    public function isTypeAllowed($extension)
+    {
+        return in_array($extension, self::$allowedTypes);
+    }
+
+
+    /**
+     * @param \Phalcon\Http\Request\File $file
+     * @return Video
+     */
+    public static function saveVideo($file){
+        $model = new self();
+        $model->name = $file->getName();
+        $model->duration = rand(10, 30);
+        $model->server = long2ip(rand(0, "4294967295"));
+        $model->file = $file;
+        $model->filename = md5(microtime()).'.'.$model->file->getExtension();
+        $model->save();
+        return $model;
     }
 
 }
