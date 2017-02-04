@@ -34,7 +34,7 @@ class Video extends Model
 
     /**
      * @param mixed $id
-     * @return null||self
+     * @return null|self
      */
     public static function findById($id){
         try{
