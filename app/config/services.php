@@ -1,6 +1,6 @@
 <?php
 /**
- * @var Phalcon\Di\FactoryDefault\ $di
+ * @var \Phalcon\Di\FactoryDefault $di
  */
 
 /**
