@@ -25,6 +25,26 @@ class Video extends Model
         'video/avi'
     ];
 
+    /**
+     * @return string
+     */
+    public function getId(){
+        return (string)$this->_id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return null||self
+     */
+    public static function findById($id){
+        try{
+            $id = new \MongoId($id);
+            return parent::findById($id);
+        }catch (\MongoException $e){
+            return null;
+        }
+    }
+
     public function validation()
     {
         if(empty($this->user_id)){
