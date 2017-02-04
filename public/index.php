@@ -12,9 +12,11 @@ try{
     $app = require_once APP_PATH.DIRECTORY_SEPARATOR.'app.php';
 
     $app->handle();
-}catch (\Exception $e){
-    $exception = new \Rest\Components\RestException($e->getCode()?:500, '', [
-        'devMessage'=>$e->getMessage()
-    ]);
+}catch (\Exception $exception){
+    if(!($exception instanceof \Rest\Components\RestException)){
+        $exception = new \Rest\Components\RestException($exception->getCode()?:500, '', [
+            'devMessage'=>$exception->getMessage()
+        ]);
+    }
     $exception->send();
 }
