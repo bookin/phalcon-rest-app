@@ -65,8 +65,8 @@ $app->get('/', function() use ($app){
 $app->notFound(function () use ($app) {
     throw new Rest\Components\RestException(
         404,
+        'That route was not found on the server.',
         [
-            'devMessage' => 'That route was not found on the server.',
             'devCode' => 'NF1000',
             'devInfo' => 'Check route for misspellings.'
         ]

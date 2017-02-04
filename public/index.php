@@ -12,7 +12,7 @@ try{
 
     $app->handle();
 }catch (\Exception $e){
-    $exception = new \Rest\Components\RestException($e->getCode()?:500, [
+    $exception = new \Rest\Components\RestException($e->getCode()?:500, '', [
         'devMessage'=>$e->getMessage()
     ]);
     $exception->send();

@@ -14,11 +14,17 @@ class RestException extends \Exception{
     /**
      * RestException constructor.
      * @param int $code
+     * @param string $message
      * @param array $errorArray
      */
-    public function __construct($code, $errorArray=[]){
+    public function __construct($code, $message='', $errorArray=[]){
         $this->code = $code;
-        $this->message = $this->response = Response::getStatusDescription($code);
+        $this->response = Response::getStatusDescription($code);
+        if(!empty($message)){
+            $this->message = $message;
+        }else{
+            $this->message = $this->response;
+        }
         $this->devCode = @$errorArray['devCode'];
         $this->devMessage = @$errorArray['devMessage'];
         $this->devInfo = @$errorArray['devInfo'];

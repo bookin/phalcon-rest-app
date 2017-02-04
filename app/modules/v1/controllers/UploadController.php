@@ -30,7 +30,7 @@ class UploadController extends RestController {
         sleep(rand(1, 20));
         $model = new Video();
         if(!$model->save()){
-            throw new RestException(500, ['devMessage'=>$model->getMessages()]);
+            throw new RestException(500, '', ['devMessage'=>$model->getMessages()]);
         }else{
             return $this->response([
                 'filename'=>$model->filename,

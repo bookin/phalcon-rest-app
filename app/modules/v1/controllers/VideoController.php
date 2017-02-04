@@ -78,7 +78,7 @@ class VideoController extends RestController{
         /** @var Requests $request */
         $request = Requests::findFirst(['_id'=>$request_id]);
         if(!$request){
-            throw new RestException(404, ['devMessage'=>'Request not found']);
+            throw new RestException(404, '', ['devMessage'=>'Request not found']);
         }
 
         return $this->response(['status'=>Requests::$statuses[$request->status]]);
@@ -94,7 +94,7 @@ class VideoController extends RestController{
         /** @var Video $video */
         $video = Video::findFirst(['_id'=>$video_id]);
         if(!$video){
-            throw new RestException(404, ['devMessage'=>'Video not found']);
+            throw new RestException(404, '', ['devMessage'=>'Video not found']);
         }
 
         $manager = new VideoManager();
@@ -114,13 +114,13 @@ class VideoController extends RestController{
         /** @var Requests $request */
         $request = Requests::findFirst(['_id'=>$request_id]);
         if(!$request){
-            throw new RestException(404, ['devMessage'=>'Request not found']);
+            throw new RestException(404, '', ['devMessage'=>'Request not found']);
         }
 
         /** @var Video $video */
         $video = Video::findFirst(['_id'=>$request->video_id]);
         if(!$video){
-            throw new RestException(404, ['devMessage'=>'Video not found']);
+            throw new RestException(404, '', ['devMessage'=>'Video not found']);
         }
 
         $manager = new VideoManager();

@@ -16,7 +16,7 @@ class AuthController extends RestController
     public function getToken(){
         $model = new Tokens();
         if(!$model->save()){
-            throw new RestException(500, ['devMessage'=>$model->getMessages()]);
+            throw new RestException(500, '', ['devMessage'=>$model->getMessages()]);
         }else{
             return $this->response(['user_id'=>$model->_id, 'token'=>$model->token]);
         }

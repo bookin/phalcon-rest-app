@@ -75,6 +75,7 @@ $di->setShared('requestBody', function() {
     if($in === null){
         throw new \Rest\Components\RestException(
             409,
+            'There was a problem understanding the data sent to the server by the application.',
             [
                 'devMessage' => 'The JSON body sent to the server was unable to be parsed.',
                 'devCode' => 'REQ1000',
