@@ -46,6 +46,10 @@ class RestException extends \Exception{
             $error['devCode'] = $this->devCode;
             $error['devMessage'] = $this->devMessage;
             $error['devInfo'] = $this->devInfo;
+            $error['file'] = [
+                'path'=>$this->getFile(),
+                'line'=>$this->getLine()
+            ];
         }
 
 
