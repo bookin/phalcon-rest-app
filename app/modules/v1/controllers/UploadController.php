@@ -38,6 +38,7 @@ class UploadController extends RestController {
                         throw new RestException(400, $errors[0], ['devMessage'=>$errors]);
                     }else{
                         return $this->response([
+                            'id'=>$model->getId(),
                             'filename'=>$model->filename,
                             'duration'=>$model->duration,
                             'url'=>$this->di->get('url')->get('/public/'.$model->filename)

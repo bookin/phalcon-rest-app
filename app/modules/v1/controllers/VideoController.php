@@ -20,6 +20,7 @@ class VideoController extends RestController{
         $response = [];
         $models = Video::find([['user_id'=>$user->token]]);
         if($models){
+            /** @var Video $model */
             foreach($models as $model){
                 $response[] = [
                     'id'=>$model->getId(),
@@ -42,6 +43,7 @@ class VideoController extends RestController{
         $model = Video::findById($id);
         if($model){
             $response = [
+                'id'=>$model->getId(),
                 'filename'=>$model->name,
                 'duration'=>$model->duration,
                 'url'=>$this->di->get('url')->get('/public/'.$model->filename)
