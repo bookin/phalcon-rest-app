@@ -18,7 +18,7 @@ class AuthController extends RestController
         if(!$model->save()){
             throw new RestException(500, '', ['devMessage'=>$model->getMessages()]);
         }else{
-            return $this->response(['user_id'=>$model->_id, 'token'=>$model->token]);
+            return $this->response(['token'=>$model->token]);
         }
     }
 }

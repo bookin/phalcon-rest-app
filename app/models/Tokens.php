@@ -12,6 +12,10 @@ class Tokens extends Model
         $this->token = crypt(md5(microtime()));
     }
 
+    public function getId(){
+        return (string)$this->_id;
+    }
+
     public static function getUserById($id){
         return self::findFirst(['user_id'=>$id])?:null;
     }
