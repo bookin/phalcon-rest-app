@@ -27,6 +27,9 @@ class Video extends Model
 
     public function validation()
     {
+        if(empty($this->user_id)){
+            $this->appendMessage(new Message('user_id cannot be empty'));
+        }
 
         $this->validate(new StringLength([
                 "field"=>"name",
@@ -60,11 +63,13 @@ class Video extends Model
 
 
     /**
+     * @param mixed $user_id
      * @param \Phalcon\Http\Request\File $file
      * @return Video
      */
-    public static function saveVideo($file){
+    public static function saveVideo($user_id, $file){
         $model = new self();
+        $model->user_id = $user_id;
         $model->name = $file->getName();
         $model->duration = rand(10, 30);
         $model->server = long2ip(rand(0, "4294967295"));

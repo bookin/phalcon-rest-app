@@ -27,11 +27,12 @@ class UploadController extends RestController {
      */
     public function uploadVideo()
     {
+        $user_id = $this->di->get('user')->token;
         $fileNameKey = 'file';
         if ($this->request->hasFiles() == true) {
             foreach ($this->request->getUploadedFiles() as $file) {
                 if($file->getKey() == $fileNameKey){
-                    $model = Video::saveVideo($file);
+                    $model = Video::saveVideo($user_id, $file);
                     if(!$model || $model->getMessages()){
                         $errors = $model->getErrors();
                         throw new RestException(400, $errors[0], ['devMessage'=>$errors]);
