@@ -45,7 +45,7 @@ class RestException extends \Exception{
 
         $error = array(
             'code' => $this->getCode(),
-            'description' => $this->getMessage()
+            'message' => $this->getMessage()
         );
 
         if(APP_ENV == 'dev'){
