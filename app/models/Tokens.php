@@ -9,7 +9,7 @@ class Tokens extends Model
 
     public function beforeSave()
     {
-        $this->token = crypt(md5(microtime()));
+        $this->token = md5(microtime());
     }
 
     public function getId(){
