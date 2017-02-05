@@ -25,9 +25,9 @@ $collection->get('/{id}', 'view'); //get information about video
 
 $collection->get('/requests', 'getRequests'); //get requests list
 $collection->get('/requests/{request_id}', 'viewRequest'); //get processing status by request_id
+$collection->put('/requests/{request_id}', 'restartTrim'); //restart request for trim video by request_id
 
 $collection->post('/trim/{video_id}', 'startTrim'); //request for trim video by video_id, parameters: from, to
-$collection->put('/trim/{request_id}', 'restartTrim'); //restart request for trim video by request_id
 
 
 $collections[] = $collection;
