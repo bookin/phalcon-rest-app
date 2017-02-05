@@ -17,8 +17,10 @@ class VideoController extends RestController{
     public function index()
     {
         $user = $this->di->get('user');
+        $limit = $this->request->get('limit')?:25;
+        $offset = $this->request->get('offset')?:0;
         $response = [];
-        $models = Video::find([['user_id'=>$user->token]]);
+        $models = Video::getListByUserId($user->token, $limit, $offset);
         if($models){
             /** @var Video $model */
             foreach($models as $model){

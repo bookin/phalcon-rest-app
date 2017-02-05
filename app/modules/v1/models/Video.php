@@ -103,4 +103,15 @@ class Video extends Model
         return self::getDI()->get('url')->get('public/files/'.$this->filename);
     }
 
+    /**
+     * Get list of Video
+     * @param $user_id
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+    public static function getListByUserId($user_id, $limit=25, $offset=0){
+        return self::find([['user_id'=>$user_id], "limit"=>$limit, "skip"=>$offset]);
+    }
+
 }
