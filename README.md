@@ -7,7 +7,7 @@ It is skeleton, for creating REST services, with module for example first versio
 ### Require
 
 - PHP ~5.6
-- Phalcone Framework ~3.0.3
+- Phalcon Framework ~3.0.3
 - MongoDb ~3.0
 - Composer ~1.3
 
