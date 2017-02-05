@@ -99,4 +99,8 @@ class Video extends Model
         return $model;
     }
 
+    public function getUrl(){
+        return self::getDI()->get('url')->get('public/files/'.$this->filename);
+    }
+
 }

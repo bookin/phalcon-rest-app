@@ -68,7 +68,7 @@ class VideoController extends RestController{
                 $requests[] = [
                     'id'=>$model->getId(),
                     'filename'=>$video->name,
-                    'url'=>$this->di->get('url')->get('public/'.$video->filename),
+                    'url'=>$video->getUrl(),
                     'status'=>Requests::$statuses[$model->status]
                 ];
             }
@@ -94,7 +94,7 @@ class VideoController extends RestController{
         return $this->response([
             'id'=>$model->getId(),
             'filename'=>$video->name,
-            'url'=>$this->di->get('url')->get('public/'.$video->filename),
+            'url'=>$video->getUrl(),
             'status'=>Requests::$statuses[$model->status]
         ]);
     }
@@ -129,7 +129,7 @@ class VideoController extends RestController{
             return $this->response([
                 'id'=>$model->getId(),
                 'filename'=>$video->name,
-                'url'=>$this->di->get('url')->get('public/'.$video->filename),
+                'url'=>$video->getUrl(),
                 'status'=>Requests::$statuses[$model->status]
             ]);
         }else{
@@ -163,7 +163,7 @@ class VideoController extends RestController{
             return $this->response([
                 'id'=>$model->getId(),
                 'filename'=>$video->name,
-                'url'=>$this->di->get('url')->get('public/'.$video->filename),
+                'url'=>$video->getUrl(),
                 'status'=>Requests::$statuses[$model->status]
             ]);
         }else{
