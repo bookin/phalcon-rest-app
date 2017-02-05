@@ -159,4 +159,15 @@ class Requests extends Model
         $request->save();
         return $request;
     }
+
+    /**
+     * Get list of Requests
+     * @param $user_id
+     * @param int $limit
+     * @param int $offset
+     * @return array
+     */
+    public static function getListByUserId($user_id, $limit=25, $offset=0){
+        return self::find([['user_id'=>$user_id], "limit"=>$limit, "skip"=>$offset]);
+    }
 }
