@@ -54,6 +54,6 @@ composer.phar
 /cache/
 /config/development/
 composer.lock
-
+tests/_output/*
 public/files/*
 !.gitkeep
